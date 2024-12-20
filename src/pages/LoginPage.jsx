@@ -5,6 +5,8 @@ import { Form, Button, Container, Alert } from 'react-bootstrap';
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 
+const backendUrl = import.meta.env.VITE_BACKEND_URL;
+
 const LoginPage = () => {
   const [username, setUsername] = useState('');
   const [password, setPassword] = useState('');
@@ -17,7 +19,7 @@ const LoginPage = () => {
 
     try {
       // Send login request
-      const response = await axios.post('http://localhost:5000/api/auth/login', {
+      const response = await axios.post(`${backendUrl}api/auth/login`, {
         username,
         password,
       });

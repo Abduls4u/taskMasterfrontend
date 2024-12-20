@@ -5,6 +5,8 @@ import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import { useNavigate } from 'react-router-dom';
 
+const backendUrl = import.meta.env.VITE_BACKEND_URL;
+
 const RegisterPage = () => {
   const [username, setUsername] = useState('');
   const [password, setPassword] = useState('');
@@ -24,7 +26,7 @@ const RegisterPage = () => {
 
     try {
       // Send POST request to register user
-      const response = await axios.post('http://localhost:5000/api/auth/register', {
+      const response = await axios.post(`${backendUrl}api/auth/register`, {
         username,
         password,
       });

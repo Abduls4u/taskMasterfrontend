@@ -3,6 +3,9 @@ import { useState, useEffect } from 'react';
 import { Form, Button, Card, Row, Col, Modal, Spinner, Alert } from 'react-bootstrap';
 import axios from 'axios';
 
+
+const backendUrl = import.meta.env.VITE_BACKEND_URL;
+
 const TaskDashboard = ({ priorityFilter }) => {
   const [tasks, setTasks] = useState([]); // State to store tasks
   const [filteredTasks, setFilteredTasks] = useState([]); // Filtered tasks
@@ -44,7 +47,7 @@ const TaskDashboard = ({ priorityFilter }) => {
     setLoading(true);
     try {
       const token = localStorage.getItem('token'); // Retrieve token from localStorage
-      const response = await axios.get('/api/tasks', {
+      const response = await axios.get(`${backendUrl}api/tasks`, {
         headers: { Authorization: `Bearer ${token}` },
       });
       setTasks(response.data);
@@ -68,7 +71,7 @@ const TaskDashboard = ({ priorityFilter }) => {
     try {
       setLoading(true);
       const token = localStorage.getItem('token');
-      const res = await axios.post('/api/tasks', formData, {
+      const res = await axios.post(`${backendUrl}api/tasks`, formData, {
         headers: { Authorization: `Bearer ${token}` },
       });
       setTasks([...tasks, res.data]);
@@ -87,7 +90,7 @@ const TaskDashboard = ({ priorityFilter }) => {
     try {
       setLoading(true);
       const token = localStorage.getItem('token');
-      await axios.delete(`/api/tasks/${id}`, {
+      await axios.delete(`${backendUrl}api/tasks/${id}`, {
         headers: { Authorization: `Bearer ${token}` },
       });
       setTasks(tasks.filter((task) => task._id !== id));
@@ -116,7 +119,7 @@ const TaskDashboard = ({ priorityFilter }) => {
     try {
       setLoading(true);
       const token = localStorage.getItem('token');
-      const res = await axios.put(`/api/tasks/${currentTask._id}`, formData, {
+      const res = await axios.put(`${backendUrl}api/tasks/${currentTask._id}`, formData, {
         headers: { Authorization: `Bearer ${token}` },
       });
       setTasks(tasks.map((task) => (task._id === currentTask._id ? res.data : task)));

@@ -7,10 +7,12 @@ import TaskDashboard from './components/TaskDashboard';
 import 'bootstrap/dist/css/bootstrap.min.css';
 
 
+
 const App = () => {
   const [priorityFilter, setPriorityFilter] = useState('all');
 
   // A protected route component that checks for authentication
+  // eslint-disable-next-line react/prop-types
   const ProtectedRoute = ({ children }) => {
     const isAuthenticated = localStorage.getItem('token');
     
